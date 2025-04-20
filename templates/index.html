@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block head %} 
+<title>MY TODO </title>
+{% endblock %} 
+
+
+{% block body %}
+<div class="content">
+    <h1>Task Smash 5.5</h1>
+
+    {% if tasks | length < 1 %}
+    <h3> No tasks added yet .. Create one here</h3>
+    {% else %}
+    <table>
+        <tr>
+            <th>Task</th>
+            <th> Added</th>
+            <th>Action </th>
+        </tr>
+        {% for tasks in tasks %}
+        <tr>
+            <td>{{tasks.Content}}</td>
+            <td>{{tasks.created.strftime("%Y-%m-%d")}}</td>
+            <td>
+                 <a href="/delete/{{tasks.id}}">Delete</a>
+                 <br/>
+                 <a href="/update/{{tasks.id}}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <form action="/" method="POST">
+        <input type="text" name="content" id ="content" />
+        <input type="submit" value="Add Task" id="btn-add"/>
+    </form>
+    </div>
+{% endblock %}
